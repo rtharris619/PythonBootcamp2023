@@ -32,7 +32,19 @@ def day20():
         # Detects a collision with the food
         if my_snake.head.distance(my_food) < 15:
             my_food.refresh()
+            my_snake.extend()
             my_scoreboard.increase_score()
+
+        # Detects a collision with the wall
+        if my_snake.head.xcor() > 290 or my_snake.head.xcor() < -290 or my_snake.head.ycor() > 290 or my_snake.head.ycor() < -290:
+            game_is_on = False
+            my_scoreboard.game_over()
+
+        # Detects a collision with the tail
+        for segment in my_snake.segments[1:]:
+            if my_snake.head.distance(segment) < 10:
+                game_is_on = False
+                my_scoreboard.game_over()
 
     screen.exitonclick()
 
