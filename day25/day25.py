@@ -1,7 +1,7 @@
 import pandas
 
 
-def day_25():
+def driver():
     states_game()
 
 

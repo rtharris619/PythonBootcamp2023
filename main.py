@@ -1,4 +1,4 @@
 from day20 import day20
-from day25 import day25
+from day71 import day71
 
-day25.day_25()
+day71.driver()
