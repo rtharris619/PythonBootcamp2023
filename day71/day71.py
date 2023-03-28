@@ -1,6 +1,5 @@
 import pandas as pd
 from tabulate import tabulate
-import pprint
 
 
 def driver():
