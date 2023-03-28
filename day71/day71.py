@@ -1,5 +1,6 @@
 import pandas as pd
 from tabulate import tabulate
+import pprint
 
 
 def driver():
@@ -9,11 +10,14 @@ def driver():
     # analysis.head_print()
     # analysis.lowest_starting_salary()
     # analysis.highest_risk_major()
-    analysis.greatest_salary_spread()
+    # analysis.greatest_salary_spread()
+    # analysis.group_mean()
+    analysis.group_max()
 
 
 class Analysis:
     def __init__(self):
+        pd.options.display.float_format = '{:,.2f}'.format
         self.df = pd.read_csv('./day71/salaries_by_college_major.csv')
         self.clean_up()
 
@@ -96,3 +100,15 @@ class Analysis:
 
         # biggest_gap = self.df.sort_values('Spread', ascending=False)
         # print(biggest_gap[['Undergraduate Major', 'Spread']].head())
+
+    def group_count(self):
+        count = self.df.groupby('Group').count()
+        print(count)
+
+    def group_mean(self):
+        mean = self.df.groupby('Group')['Mid-Career 90th Percentile Salary'].mean()
+        print(mean)
+
+    def group_max(self):
+        max_salary_by_group = self.df.groupby('Group')['Mid-Career 90th Percentile Salary'].max()
+        print(max_salary_by_group)
