@@ -48,8 +48,18 @@ class Analysis:
         plt.show()
 
     def themes_by_year(self):
-        themes_by_year_df = self.sets_df.groupby('year').agg({'theme_id': pd.Series.nunique}).sort_values('year')
+        themes_by_year_df = self.sets_df.groupby('year').agg({'theme_id': pd.Series.nunique})
         themes_by_year_df.rename(columns={'theme_id': 'nr_themes'}, inplace=True)
-        print(themes_by_year_df.head())
-        plt.plot(themes_by_year_df.index[:-2], themes_by_year_df['nr_themes'][:-2])
+
+        sets_by_year_df = self.sets_df.groupby('year').agg({'set_num': pd.Series.nunique})
+
+        ax1 = plt.gca()
+        ax2 = ax1.twinx()
+        ax1.plot(sets_by_year_df.index[:-2], sets_by_year_df['set_num'][:-2], color='g')
+        ax2.plot(themes_by_year_df.index[:-2], themes_by_year_df['nr_themes'][:-2], color='b')
+
+        ax1.set_xlabel('Year')
+        ax1.set_ylabel('Number of Sets', color='green')
+        ax2.set_ylabel('Number of Themes', color='blue')
+
         plt.show()
